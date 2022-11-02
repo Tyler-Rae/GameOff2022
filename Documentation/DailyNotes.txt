@@ -5,3 +5,7 @@
 - Set up repo and SSH key junk, as well as a basic gitignore
 - Initial commits!
 - Brainstorming cliche ideas
+
+11.2.2022
+- Planned initial goal, moving and collision
+- 
