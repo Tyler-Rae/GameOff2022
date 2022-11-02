@@ -8,4 +8,7 @@
 
 11.2.2022
 - Planned initial goal, moving and collision
-- 
+- Created the main menu
+- Learned a bit more about scenes and found out resources can be used to keep persistent data
+- Added some stub code to generate a level and then load it in
+
