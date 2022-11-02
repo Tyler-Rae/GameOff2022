@@ -1,0 +1,5 @@
+11.1.2022
+- Set up initial godot project, time to learn a new engine lol
+- Wrote this note
+- Setting up godot export templates to make a default build (windows platform)
+- Brainstorming cliche ideas
