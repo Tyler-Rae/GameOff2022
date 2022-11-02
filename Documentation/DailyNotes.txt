@@ -2,4 +2,6 @@
 - Set up initial godot project, time to learn a new engine lol
 - Wrote this note
 - Setting up godot export templates to make a default build (windows platform)
+- Set up repo and SSH key junk, as well as a basic gitignore
+- Initial commits!
 - Brainstorming cliche ideas
