@@ -14,6 +14,8 @@ public class LevelGeneration : Resource
 	[Export]
 	public PackedScene FloorTile;
 
+	public Vector2 cameraPositionTest;
+
 	public void GenerateLevel()
 	{
 		Initialized = true;
@@ -47,14 +49,28 @@ public class LevelGeneration : Resource
 		if(pixel.r == 0 && pixel.g == 0 && pixel.b == 0)
 		{
 			Sprite sprite = (Sprite)WallTile.Instance();
-			sprite.Position = new Vector2(x * 25, y * 25);
+
+			Transform transform = sprite as Transform;
+			if(transform != null)
+            {
+				transform.worldPosition = new Vector3(x * 40, y * 40, 0.0f);
+				transform.UpdatePosition();
+            }
+
 			tree.CurrentScene.AddChild(sprite);
 		}
 
 		if(pixel.r == 1)
 		{
 			Sprite sprite = (Sprite)FloorTile.Instance();
-			sprite.Position = new Vector2(x * 25, y * 25);
+
+			Transform transform = sprite as Transform;
+			if (transform != null)
+			{
+				transform.worldPosition = new Vector3(x * 40, y * 40, 0.0f);
+				transform.UpdatePosition();
+			}
+
 			tree.CurrentScene.AddChild(sprite);
 		}
 
