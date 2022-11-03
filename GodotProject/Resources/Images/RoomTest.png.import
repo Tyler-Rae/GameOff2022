@@ -1,0 +1,13 @@
+[remap]
+
+importer="image"
+type="Image"
+path="res://.import/RoomTest.png-516aa8b123c189bce33788afa1dce66b.image"
+
+[deps]
+
+source_file="res://Resources/Images/RoomTest.png"
+dest_files=[ "res://.import/RoomTest.png-516aa8b123c189bce33788afa1dce66b.image" ]
+
+[params]
+

@@ -19,6 +19,6 @@ public class GameEntry : Node2D
 
 		GD.Print("entered level ...");
 
-		levelGen.LoadRoom();
+		levelGen.LoadRoom(GetTree());
 	}
 }
