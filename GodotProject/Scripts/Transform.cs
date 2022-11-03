@@ -1,9 +1,10 @@
 using Godot;
 using System;
 
-public class Transform : Sprite
+public class Transform : Node
 {
     public Vector3 worldPosition;
+    public Vector3 screenSpacePosition;
 
     public override void _Process(float delta)
     {
@@ -16,6 +17,18 @@ public class Transform : Sprite
 
         Vector3 screenSpacePosition = Coordinates.ToScreenSpace(worldPosition, levelGen.cameraPositionTest);
 
-        Position = new Vector2(screenSpacePosition.x, screenSpacePosition.y);
+        Sprite sprite = GetParent() as Sprite;
+        if(sprite != null)
+        {
+            sprite.Position = new Vector2(screenSpacePosition.x, screenSpacePosition.y);
+            sprite.ZIndex = (int)screenSpacePosition.z;
+        }
+
+        AnimatedSprite animatedSprite = GetParent() as AnimatedSprite;
+        if (animatedSprite != null)
+        {
+            animatedSprite.Position = new Vector2(screenSpacePosition.x, screenSpacePosition.y);
+            animatedSprite.ZIndex = (int)screenSpacePosition.z;
+        }
     }
 }

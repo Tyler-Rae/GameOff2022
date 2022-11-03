@@ -14,7 +14,10 @@ public class LevelGeneration : Resource
 	[Export]
 	public PackedScene FloorTile;
 
-	public Vector2 cameraPositionTest;
+	[Export]
+	public PackedScene Player;
+
+	public Vector2 cameraPositionTest = new Vector2(-600.0f, -600.0f);
 
 	public void GenerateLevel()
 	{
@@ -48,35 +51,44 @@ public class LevelGeneration : Resource
 	{
 		if(pixel.r == 0 && pixel.g == 0 && pixel.b == 0)
 		{
-			Sprite sprite = (Sprite)WallTile.Instance();
+			Node node = WallTile.Instance();
 
-			Transform transform = sprite as Transform;
+			Transform transform = node.GetNode("Transform") as Transform;
 			if(transform != null)
             {
 				transform.worldPosition = new Vector3(x * 40, y * 40, 0.0f);
 				transform.UpdatePosition();
             }
 
-			tree.CurrentScene.AddChild(sprite);
+			tree.CurrentScene.AddChild(node);
 		}
 
 		if(pixel.r == 1)
 		{
-			Sprite sprite = (Sprite)FloorTile.Instance();
+			Node node = FloorTile.Instance();
 
-			Transform transform = sprite as Transform;
+			Transform transform = node.GetNode("Transform") as Transform;
 			if (transform != null)
 			{
 				transform.worldPosition = new Vector3(x * 40, y * 40, 0.0f);
 				transform.UpdatePosition();
 			}
 
-			tree.CurrentScene.AddChild(sprite);
+			tree.CurrentScene.AddChild(node);
 		}
 
 		if(pixel.g == 1)
 		{
-			// player spawn
+			Node node = Player.Instance();
+
+			Transform transform = node.GetNode("Transform") as Transform;
+			if (transform != null)
+			{
+				transform.worldPosition = new Vector3(x * 40, y * 40, 0.0f);
+				transform.UpdatePosition();
+			}
+
+			tree.CurrentScene.AddChild(node);
 		}
 	}
 }
