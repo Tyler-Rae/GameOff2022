@@ -1,9 +1,0 @@
-D:\GameDev\GameOff2022\GodotProject\.mono\temp\bin\Debug\GameOff2022.dll
-D:\GameDev\GameOff2022\GodotProject\.mono\temp\bin\Debug\GameOff2022.pdb
-D:\GameDev\GameOff2022\GodotProject\.mono\temp\obj\Debug\GameOff2022.csproj.AssemblyReference.cache
-D:\GameDev\GameOff2022\GodotProject\.mono\temp\obj\Debug\GameOff2022.GeneratedMSBuildEditorConfig.editorconfig
-D:\GameDev\GameOff2022\GodotProject\.mono\temp\obj\Debug\GameOff2022.AssemblyInfoInputs.cache
-D:\GameDev\GameOff2022\GodotProject\.mono\temp\obj\Debug\GameOff2022.AssemblyInfo.cs
-D:\GameDev\GameOff2022\GodotProject\.mono\temp\obj\Debug\GameOff2022.csproj.CoreCompileInputs.cache
-D:\GameDev\GameOff2022\GodotProject\.mono\temp\obj\Debug\GameOff2022.dll
-D:\GameDev\GameOff2022\GodotProject\.mono\temp\obj\Debug\GameOff2022.pdb

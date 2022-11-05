@@ -12,3 +12,9 @@
 - Learned a bit more about scenes and found out resources can be used to keep persistent data
 - Added some stub code to generate a level and then load it in
 
+11.3.2022
+11.4.2022
+- Struggled with godot on simple things, decided not to use it
+
+11.5.2022
+- 
