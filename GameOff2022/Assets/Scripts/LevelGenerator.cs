@@ -8,6 +8,7 @@ public class LevelGenerator : MonoBehaviour
 
     public GameObject m_wallPrefab;
     public GameObject m_floorPrefab;
+    public GameObject m_doorPrefab;
     public GameObject m_playerPrefab;
     public GameObject m_emptyObjectPrefab;
 
@@ -37,7 +38,7 @@ public class LevelGenerator : MonoBehaviour
 
             //{
             //    int count = 0;
-            //    foreach((int, int) key in m_levelGrid.Keys)
+            //    foreach ((int, int) key in m_levelGrid.Keys)
             //    {
             //        GameObject.Instantiate(m_floorPrefab, new Vector3(key.Item1, count++ * 0.05f, key.Item2), Quaternion.identity);
             //    }
@@ -46,6 +47,32 @@ public class LevelGenerator : MonoBehaviour
             TravelToRoom(m_currentRoom, (0, -1));
 
             m_initialized = true;
+        }
+    }
+
+    public void Travel(EDoorDirection direction)
+    {
+        (int, int) fromDirection = (0, 0);
+        switch(direction)
+        {
+            case EDoorDirection.Left:
+                fromDirection = (1, 0);
+                break;
+            case EDoorDirection.Right:
+                fromDirection = (-1, 0);
+                break;
+            case EDoorDirection.Up:
+                fromDirection = (-1, 0);
+                break;
+            case EDoorDirection.Down:
+                fromDirection = (1, 0);
+                break;
+        }
+
+        (int, int) coords = (m_currentRoom.Item1 - fromDirection.Item1, m_currentRoom.Item2 - fromDirection.Item2);
+        if(m_levelGrid.ContainsKey(coords))
+        {
+            TravelToRoom(coords, fromDirection);
         }
     }
 
@@ -90,7 +117,6 @@ public class LevelGenerator : MonoBehaviour
     {
         uint roomsToPlace = m_numberOfRooms;
 
-
         RoomMetaData startRoom = RoomMetaData.Create();
 
         RoomMeta.ChooseDoors(ref startRoom, m_doorChance);
@@ -132,6 +158,30 @@ public class LevelGenerator : MonoBehaviour
         return true;
     }
 
+    private void CreatePrefab(GameObject prefab, int x, int y)
+    {
+        if (prefab != null)
+        {
+            GameObject newInstance = GameObject.Instantiate(prefab, new Vector3(x, 0.0f, y), Quaternion.identity);
+            newInstance.transform.SetParent(m_generatedObjects.transform);
+        }
+    }
+
+    private void CreateDoorPrefab(GameObject prefab, int x, int y, EDoorDirection doorDirection)
+    {
+        if (prefab != null)
+        {
+            GameObject newInstance = GameObject.Instantiate(prefab, new Vector3(x, 0.0f, y), Quaternion.identity);
+            newInstance.transform.SetParent(m_generatedObjects.transform);
+
+            DoorMeta doorMeta = newInstance.GetComponent<DoorMeta>();
+            if(doorMeta != null)
+            {
+                doorMeta.m_doorDirection = doorDirection;
+            }
+        }
+    }
+
     private void LoadLevel(Texture2D levelTexture)
     {
         for (int x = 0; x < levelTexture.width; ++x)
@@ -139,23 +189,33 @@ public class LevelGenerator : MonoBehaviour
             for (int y = 0; y < levelTexture.height; ++y)
             {
                 Color pixel = levelTexture.GetPixel(x, y);
+                int r = (int)(pixel.r * 255);
+                int g = (int)(pixel.g * 255);
+                int b = (int)(pixel.b * 255);
 
-                if (pixel.r == 0 && pixel.g == 0 && pixel.b == 0)
+                if (r == 0 && g == 0 && b == 0)
                 {
-                    if (m_wallPrefab != null)
-                    {
-                        GameObject newInstance = GameObject.Instantiate(m_wallPrefab, new Vector3(x, 0.0f, y), Quaternion.identity);
-                        newInstance.transform.SetParent(m_generatedObjects.transform);
-                    }
+                    CreatePrefab(m_wallPrefab, x, y);
                 }
-
-                if (pixel.r == 1)
+                else if (r == 255 && g == 0 && b == 0)
                 {
-                    if (m_floorPrefab != null)
-                    {
-                        GameObject newInstance = GameObject.Instantiate(m_floorPrefab, new Vector3(x, 0.0f, y), Quaternion.identity);
-                        newInstance.transform.SetParent(m_generatedObjects.transform);
-                    }
+                    CreatePrefab(m_floorPrefab, x, y);
+                }
+                else if(r == 1 && g == 0 && b == 0)
+                {
+                    CreateDoorPrefab(m_doorPrefab, x, y, EDoorDirection.Left);
+                }
+                else if (r == 2 && g == 0 && b == 0)
+                {
+                    CreateDoorPrefab(m_doorPrefab, x, y, EDoorDirection.Up);
+                }
+                else if (r == 3 && g == 0 && b == 0)
+                {
+                    CreateDoorPrefab(m_doorPrefab, x, y, EDoorDirection.Right);
+                }
+                else if (r == 4 && g == 0 && b == 0)
+                {
+                    CreateDoorPrefab(m_doorPrefab, x, y, EDoorDirection.Down);
                 }
             }
         }
